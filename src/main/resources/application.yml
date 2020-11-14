@@ -1,1 +1,20 @@
-
+#LOGGING CONFIGURATIONS
+debug: true
+logging:
+  file:
+    name: taskmanager.log
+    path: /opt
+  level:
+    org:
+      springframework.*: info
+    br:
+      eng:
+        joaofaro:
+          taskmanager: debug
+  pattern:
+    console: '%clr(%d{${LOG_DATEFORMAT_PATTERN:-dd-MM-yyyy HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(%X{UUID_TASK_MANAGER}){yellow} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}'
+    file: '%clr(%d{${LOG_DATEFORMAT_PATTERN:-dd-MM-yyyy HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(%X{UUID_TASK_MANAGER}){yellow} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}'
+  logback:
+    rollingpolicy:
+      max-file-size: 20MB
+      max-history: 30
