@@ -4,10 +4,14 @@ import br.eng.joaofaro.taskmanager.beans.AccountUserBean;
 import br.eng.joaofaro.taskmanager.beans.TaskBean;
 import br.eng.joaofaro.taskmanager.dto.ResponseDto;
 import br.eng.joaofaro.taskmanager.dto.TaskDto;
+import br.eng.joaofaro.taskmanager.enums.TaskStatus;
+import br.eng.joaofaro.taskmanager.exception.StatusNotFoundException;
 import br.eng.joaofaro.taskmanager.exception.TaskManagerException;
+import br.eng.joaofaro.taskmanager.exception.TaskNotFoundException;
 import br.eng.joaofaro.taskmanager.services.TaskManagerService;
 import br.eng.joaofaro.taskmanager.services.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author João Faro    contato@joaofaro.eng.br on 13/11/20
@@ -60,10 +66,43 @@ public class TaskManagerImpl implements TaskManager{
         return ResponseEntity.created(uri).body(responseDto);
     }
 
+    @Override
+    public ResponseEntity<List<ResponseDto>> list(String status) throws TaskManagerException, TaskNotFoundException, StatusNotFoundException {
+        AccountUserBean userInfo = userInfoService.getUserInfo();
+        List<TaskBean> taskBeanList;
+        if (!StringUtils.isBlank(status)) {
+            if (!checkStatus(status)) {
+                throw new StatusNotFoundException("Status type not found");
+            }
+            log.info("Listing all tasks for User by status: {}, {}", userInfo, status);
+             taskBeanList = taskManagerService.listAllBy(TaskStatus.getEnumByCode(StringUtils.lowerCase(status)), userInfo);
+        }else {
+            taskBeanList = taskManagerService.listAllBy(null, userInfo);
+        }
+        List<ResponseDto> list = buildResponseList(taskBeanList);
+
+        return ResponseEntity.ok(list);
+    }
+
+    private List<ResponseDto> buildResponseList(List<TaskBean> taskBeanList) {
+        log.info("Building response with list of tasks");
+        ArrayList<ResponseDto> dtos = new ArrayList<>();
+        for (TaskBean taskBean : taskBeanList) {
+            ResponseDto dto = mapper.map(taskBean, ResponseDto.class);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+    private boolean checkStatus(String status) {
+        log.info("Checking status type: {}", status);
+        TaskStatus taskStatus = TaskStatus.getEnumByCode(StringUtils.lowerCase(status));
+        return taskStatus != null;
+    }
+
     private ResponseDto buildResponse(TaskBean taskNew, AccountUserBean userInfo) {
         log.info("Building response with task: {}", taskNew);
         ResponseDto dto = mapper.map(taskNew, ResponseDto.class);
-        dto.setCreatedUser(userInfo.getName());
         log.info("returnig Response: {}", dto);
         return dto;
     }

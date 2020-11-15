@@ -14,9 +14,18 @@ public class TaskBean {
     private Long id;
     private LocalDateTime dateInsert;
     private String description;
+    private AccountUserBean user;
     private String shortDescription;
     private LocalDateTime dateUpdate;
     private TaskStatus currentStatus = TaskStatus.PENDING;
+
+    public AccountUserBean getUser() {
+        return user;
+    }
+
+    public void setUser(AccountUserBean user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -72,6 +81,7 @@ public class TaskBean {
                 .add("id=" + id)
                 .add("dateInsert=" + dateInsert)
                 .add("description='" + description + "'")
+                .add("user=" + user)
                 .add("shortDescription='" + shortDescription + "'")
                 .add("dateUpdate=" + dateUpdate)
                 .add("currentStatus=" + currentStatus)

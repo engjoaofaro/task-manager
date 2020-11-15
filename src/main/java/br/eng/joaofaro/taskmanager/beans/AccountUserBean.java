@@ -3,7 +3,6 @@ package br.eng.joaofaro.taskmanager.beans;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.StringJoiner;
 
 /**
@@ -12,15 +11,15 @@ import java.util.StringJoiner;
  */
 public class AccountUserBean {
 
-    private String name;
+    private String username;
     private Collection<? extends GrantedAuthority> roles;
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Collection<? extends GrantedAuthority> getRoles() {
@@ -34,7 +33,7 @@ public class AccountUserBean {
     @Override
     public String toString() {
         return new StringJoiner(", ", AccountUserBean.class.getSimpleName() + "[", "]")
-                .add("name='" + name + "'")
+                .add("name='" + username + "'")
                 .add("role='" + roles + "'")
                 .toString();
     }

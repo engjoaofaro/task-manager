@@ -29,7 +29,7 @@ public class UserInfoService {
             log.info("Roles: {}", role.getAuthority());
         }
         AccountUserBean userBean = new AccountUserBean();
-        userBean.setName(authentication.getName());
+        userBean.setUsername(authentication.getName());
         userBean.setRoles(authorities);
 
         return userBean;

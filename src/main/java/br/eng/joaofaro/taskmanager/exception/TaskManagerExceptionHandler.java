@@ -46,4 +46,16 @@ public class TaskManagerExceptionHandler {
         });
         return erros;
     }
+
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ErrorDto taskManagerNotFoundExceptionHandle(Exception e) {
+        return new ErrorDto(String.valueOf(HttpStatus.NOT_FOUND.value()), e.getMessage());
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(StatusNotFoundException.class)
+    public ErrorDto StatusNotFoundExceptionHandle(Exception e) {
+        return new ErrorDto(String.valueOf(HttpStatus.BAD_REQUEST.value()), e.getMessage());
+    }
 }

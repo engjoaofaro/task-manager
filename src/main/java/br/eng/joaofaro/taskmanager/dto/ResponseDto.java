@@ -13,7 +13,8 @@ public class ResponseDto {
 
     @JsonProperty(value = "resourceId")
     private String id;
-    private String createdUser;
+    @JsonProperty(value = "createdUser")
+    private AccountUserDto user;
     private LocalDateTime dateInsert;
     private LocalDateTime dateUpdate;
     private String description;
@@ -28,12 +29,12 @@ public class ResponseDto {
         this.id = id;
     }
 
-    public String getCreatedUser() {
-        return createdUser;
+    public AccountUserDto getUser() {
+        return user;
     }
 
-    public void setCreatedUser(String createdUser) {
-        this.createdUser = createdUser;
+    public void setUser(AccountUserDto user) {
+        this.user = user;
     }
 
     public LocalDateTime getDateInsert() {
@@ -76,11 +77,12 @@ public class ResponseDto {
         this.status = status;
     }
 
+
     @Override
     public String toString() {
         return new StringJoiner(", ", ResponseDto.class.getSimpleName() + "[", "]")
-                .add("resourceId='" + id + "'")
-                .add("createdUser='" + createdUser + "'")
+                .add("id='" + id + "'")
+                .add("user=" + user)
                 .add("dateInsert=" + dateInsert)
                 .add("dateUpdate=" + dateUpdate)
                 .add("description='" + description + "'")
