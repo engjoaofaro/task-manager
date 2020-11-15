@@ -6,6 +6,7 @@ import br.eng.joaofaro.taskmanager.dto.ResponseDto;
 import br.eng.joaofaro.taskmanager.dto.TaskDto;
 import br.eng.joaofaro.taskmanager.enums.TaskStatus;
 import br.eng.joaofaro.taskmanager.exception.StatusNotFoundException;
+import br.eng.joaofaro.taskmanager.exception.TaskAlreadyCompletedStatusException;
 import br.eng.joaofaro.taskmanager.exception.TaskManagerException;
 import br.eng.joaofaro.taskmanager.exception.TaskNotFoundException;
 import br.eng.joaofaro.taskmanager.services.TaskManagerService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,7 @@ public class TaskManagerImpl implements TaskManager{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> create(@RequestBody TaskDto task, UriComponentsBuilder uriBuilder) throws TaskManagerException {
+    public ResponseEntity<ResponseDto> create(@RequestBody @Valid TaskDto task, UriComponentsBuilder uriBuilder) throws TaskManagerException {
         log.info("Receiving Task: {}", task);
         log.info("Getting user details");
         AccountUserBean userInfo = userInfoService.getUserInfo();
@@ -67,7 +69,8 @@ public class TaskManagerImpl implements TaskManager{
     }
 
     @Override
-    public ResponseEntity<List<ResponseDto>> list(String status) throws TaskManagerException, TaskNotFoundException, StatusNotFoundException {
+    public ResponseEntity<List<ResponseDto>> list(String status) throws TaskManagerException, TaskNotFoundException,
+            StatusNotFoundException, TaskAlreadyCompletedStatusException {
         AccountUserBean userInfo = userInfoService.getUserInfo();
         List<TaskBean> taskBeanList;
         if (!StringUtils.isBlank(status)) {
@@ -82,6 +85,17 @@ public class TaskManagerImpl implements TaskManager{
         List<ResponseDto> list = buildResponseList(taskBeanList);
 
         return ResponseEntity.ok(list);
+    }
+
+    @Override
+    public ResponseEntity<?> updateStatus(Long id, String status) throws TaskManagerException, StatusNotFoundException,
+            TaskAlreadyCompletedStatusException, TaskNotFoundException {
+        log.info("Updating status for Task id and status: {}, {}", id, status);
+        if (!checkStatus(status)) {
+            throw new StatusNotFoundException("Status type not found");
+        }
+        taskManagerService.changeStatus(id, status);
+        return ResponseEntity.ok().build();
     }
 
     private List<ResponseDto> buildResponseList(List<TaskBean> taskBeanList) {

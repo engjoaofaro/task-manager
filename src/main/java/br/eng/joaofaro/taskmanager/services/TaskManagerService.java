@@ -5,6 +5,7 @@ import br.eng.joaofaro.taskmanager.beans.TaskBean;
 import br.eng.joaofaro.taskmanager.entity.AccountUser;
 import br.eng.joaofaro.taskmanager.entity.Task;
 import br.eng.joaofaro.taskmanager.enums.TaskStatus;
+import br.eng.joaofaro.taskmanager.exception.TaskAlreadyCompletedStatusException;
 import br.eng.joaofaro.taskmanager.exception.TaskManagerException;
 import br.eng.joaofaro.taskmanager.exception.TaskNotFoundException;
 import br.eng.joaofaro.taskmanager.repository.service.TaskService;
@@ -53,7 +54,7 @@ public class TaskManagerService {
         return mapper.map(task, TaskBean.class);
     }
 
-    public List<TaskBean> listAllBy(TaskStatus status, AccountUserBean user) throws TaskNotFoundException, TaskManagerException {
+    public List<TaskBean> listAllBy(TaskStatus status, AccountUserBean user) throws TaskNotFoundException, TaskManagerException, TaskAlreadyCompletedStatusException {
         List<Task> tasks = new ArrayList<>();
         try {
             AccountUser accountUser = userAccountService.getBy(user.getUsername());
@@ -75,13 +76,7 @@ public class TaskManagerService {
                 }
             }
         } catch (Exception e) {
-            if (e instanceof TaskNotFoundException) {
-                log.warn("Tasks not found in database");
-                throw new TaskNotFoundException("Tasks not found in database: "+ e.getMessage());
-            }else {
-                log.error("Error when trying to find task in database: {}", e.getMessage());
-                throw new TaskManagerException("Error when trying to find task in database: "+ e.getMessage());
-            }
+            buildExceptionResponse(e);
         }
         List<TaskBean> taskBeans = new ArrayList<>();
         for (Task task : tasks) {
@@ -97,5 +92,38 @@ public class TaskManagerService {
         task.setDateUpdate(LocalDateTime.now());
         task.setUser(accountUser);
         return task;
+    }
+
+    public void changeStatus(Long id, String status) throws TaskManagerException, TaskNotFoundException, TaskAlreadyCompletedStatusException {
+        try {
+            Task task = taskService.findById(id);
+            log.info("Status updated to: {}", status);
+            taskService.save(updateStatus(task, status));
+        }catch (Exception e) {
+            buildExceptionResponse(e);
+        }
+    }
+
+    private Task updateStatus(Task task, String status) throws TaskAlreadyCompletedStatusException {
+        if (task.getStatus().equals(TaskStatus.COMPLETED)) {
+            log.warn("Task already completed");
+            throw new TaskAlreadyCompletedStatusException("Task already completed");
+        }
+        task.setStatus(TaskStatus.getEnumByCode(status));
+        task.setDateUpdate(LocalDateTime.now());
+        return task;
+    }
+
+    private void buildExceptionResponse(Exception e) throws TaskNotFoundException, TaskManagerException, TaskAlreadyCompletedStatusException {
+        if (e instanceof TaskNotFoundException) {
+            log.warn("Tasks not found in database");
+            throw new TaskNotFoundException("Tasks not found in database: "+ e.getMessage());
+        }else if (e instanceof TaskAlreadyCompletedStatusException){
+            log.warn("Task already completed");
+            throw new TaskAlreadyCompletedStatusException("Task already completed");
+        }else {
+            log.error("Error when trying to find task in database: {}", e.getMessage());
+            throw new TaskManagerException("Error when trying to find task in database: "+ e.getMessage());
+        }
     }
 }

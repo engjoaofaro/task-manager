@@ -54,8 +54,8 @@ public class TaskManagerExceptionHandler {
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(StatusNotFoundException.class)
-    public ErrorDto StatusNotFoundExceptionHandle(Exception e) {
+    @ExceptionHandler({StatusNotFoundException.class, TaskAlreadyCompletedStatusException.class})
+    public ErrorDto StatusExceptionHandle(Exception e) {
         return new ErrorDto(String.valueOf(HttpStatus.BAD_REQUEST.value()), e.getMessage());
     }
 }
