@@ -47,3 +47,4 @@ keycloak:
   resource: task-manager-app
   credentials:
     secret: 0bf3bd99-2c54-4d6a-85cb-68db54944ddc
+  principal-attribute: preferred_username
