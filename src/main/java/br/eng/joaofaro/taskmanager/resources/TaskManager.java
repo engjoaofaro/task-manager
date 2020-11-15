@@ -7,10 +7,7 @@ import br.eng.joaofaro.taskmanager.exception.TaskAlreadyCompletedStatusException
 import br.eng.joaofaro.taskmanager.exception.TaskManagerException;
 import br.eng.joaofaro.taskmanager.exception.TaskNotFoundException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.security.RolesAllowed;
@@ -34,4 +31,10 @@ public interface TaskManager {
     @PutMapping(value = "/tasks/{id}/{status}", produces = MediaType.APPLICATION_JSON)
     ResponseEntity<?> updateStatus(@PathVariable Long id, @PathVariable String status) throws TaskManagerException,
             StatusNotFoundException, TaskAlreadyCompletedStatusException, TaskNotFoundException;
+    @GetMapping(value = "/tasks/{id}", produces = MediaType.APPLICATION_JSON)
+    ResponseEntity<ResponseDto> getById(@PathVariable Long id) throws TaskManagerException, TaskNotFoundException,
+            TaskAlreadyCompletedStatusException;
+    @DeleteMapping(value = "/tasks/{id}", produces = MediaType.APPLICATION_JSON)
+    ResponseEntity<?> delete(@PathVariable Long id) throws TaskManagerException, TaskNotFoundException,
+            TaskAlreadyCompletedStatusException;
 }

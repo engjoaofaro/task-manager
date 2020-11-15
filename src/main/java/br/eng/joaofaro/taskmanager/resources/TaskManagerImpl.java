@@ -11,6 +11,7 @@ import br.eng.joaofaro.taskmanager.exception.TaskManagerException;
 import br.eng.joaofaro.taskmanager.exception.TaskNotFoundException;
 import br.eng.joaofaro.taskmanager.services.TaskManagerService;
 import br.eng.joaofaro.taskmanager.services.UserInfoService;
+import br.eng.joaofaro.taskmanager.utils.UUIDImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -52,6 +53,7 @@ public class TaskManagerImpl implements TaskManager{
 
     @Override
     public ResponseEntity<ResponseDto> create(@RequestBody @Valid TaskDto task, UriComponentsBuilder uriBuilder) throws TaskManagerException {
+        UUIDImpl.createUUID();
         log.info("Receiving Task: {}", task);
         log.info("Getting user details");
         AccountUserBean userInfo = userInfoService.getUserInfo();
@@ -61,16 +63,18 @@ public class TaskManagerImpl implements TaskManager{
         TaskBean taskBean = mapper.map(task, TaskBean.class);
         log.info("Task: {}", taskBean);
         TaskBean taskNew = taskManagerService.createNew(taskBean, userInfo);
-        ResponseDto responseDto = buildResponse(taskNew, userInfo);
+        ResponseDto responseDto = buildResponse(taskNew);
         URI uri = uriBuilder.path("/task-manager/tasks/{id}")
                 .buildAndExpand(responseDto.getId())
                 .toUri();
+        UUIDImpl.removeUUID();
         return ResponseEntity.created(uri).body(responseDto);
     }
 
     @Override
     public ResponseEntity<List<ResponseDto>> list(String status) throws TaskManagerException, TaskNotFoundException,
             StatusNotFoundException, TaskAlreadyCompletedStatusException {
+        UUIDImpl.createUUID();
         AccountUserBean userInfo = userInfoService.getUserInfo();
         List<TaskBean> taskBeanList;
         if (!StringUtils.isBlank(status)) {
@@ -83,18 +87,44 @@ public class TaskManagerImpl implements TaskManager{
             taskBeanList = taskManagerService.listAllBy(null, userInfo);
         }
         List<ResponseDto> list = buildResponseList(taskBeanList);
-
+        UUIDImpl.removeUUID();
         return ResponseEntity.ok(list);
     }
 
     @Override
     public ResponseEntity<?> updateStatus(Long id, String status) throws TaskManagerException, StatusNotFoundException,
             TaskAlreadyCompletedStatusException, TaskNotFoundException {
+        UUIDImpl.createUUID();
+        AccountUserBean userInfo = userInfoService.getUserInfo();
         log.info("Updating status for Task id and status: {}, {}", id, status);
         if (!checkStatus(status)) {
             throw new StatusNotFoundException("Status type not found");
         }
-        taskManagerService.changeStatus(id, status);
+        taskManagerService.changeStatus(id, status, userInfo);
+        UUIDImpl.removeUUID();
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> getById(Long id) throws TaskManagerException, TaskNotFoundException,
+            TaskAlreadyCompletedStatusException {
+        UUIDImpl.createUUID();
+        AccountUserBean userInfo = userInfoService.getUserInfo();
+        log.info("Receiving Id to get task: {}", id);
+        TaskBean taskBean = taskManagerService.getBy(id, userInfo);
+        ResponseDto responseDto = buildResponse(taskBean);
+        UUIDImpl.removeUUID();
+        return ResponseEntity.ok(responseDto);
+    }
+
+    @Override
+    public ResponseEntity<?> delete(Long id) throws TaskManagerException, TaskNotFoundException,
+            TaskAlreadyCompletedStatusException {
+        UUIDImpl.createUUID();
+        AccountUserBean userInfo = userInfoService.getUserInfo();
+        log.info("Receiving Id to delete task: {}", id);
+        taskManagerService.remove(id, userInfo);
+        UUIDImpl.removeUUID();
         return ResponseEntity.ok().build();
     }
 
@@ -114,9 +144,9 @@ public class TaskManagerImpl implements TaskManager{
         return taskStatus != null;
     }
 
-    private ResponseDto buildResponse(TaskBean taskNew, AccountUserBean userInfo) {
-        log.info("Building response with task: {}", taskNew);
-        ResponseDto dto = mapper.map(taskNew, ResponseDto.class);
+    private ResponseDto buildResponse(TaskBean taskBean) {
+        log.info("Building response with task: {}", taskBean);
+        ResponseDto dto = mapper.map(taskBean, ResponseDto.class);
         log.info("returnig Response: {}", dto);
         return dto;
     }

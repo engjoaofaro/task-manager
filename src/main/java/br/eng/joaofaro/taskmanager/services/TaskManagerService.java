@@ -42,7 +42,7 @@ public class TaskManagerService {
         Task task;
         try {
             log.info("checking user into database: {}", user);
-            AccountUser accountUser = userAccountService.getBy(user.getUsername());
+            AccountUser accountUser = getAccountUser(user);
             log.info("Building task");
             task = buildingTask(taskBean, accountUser);
             log.info("Preparing to save task");
@@ -57,7 +57,7 @@ public class TaskManagerService {
     public List<TaskBean> listAllBy(TaskStatus status, AccountUserBean user) throws TaskNotFoundException, TaskManagerException, TaskAlreadyCompletedStatusException {
         List<Task> tasks = new ArrayList<>();
         try {
-            AccountUser accountUser = userAccountService.getBy(user.getUsername());
+            AccountUser accountUser = getAccountUser(user);
             if (status != null) {
                 for (GrantedAuthority role : user.getRoles()) {
                     if (StringUtils.contains(role.getAuthority(), "super_user")) {
@@ -94,11 +94,12 @@ public class TaskManagerService {
         return task;
     }
 
-    public void changeStatus(Long id, String status) throws TaskManagerException, TaskNotFoundException, TaskAlreadyCompletedStatusException {
+    public void changeStatus(Long id, String status, AccountUserBean user) throws TaskManagerException, TaskNotFoundException, TaskAlreadyCompletedStatusException {
         try {
-            Task task = taskService.findById(id);
+            AccountUser accountUser = getAccountUser(user);
+            Task task = taskService.findByIdAndUser(id, accountUser);
             log.info("Status updated to: {}", status);
-            taskService.save(updateStatus(task, status));
+            taskService.saveAndFlush(updateStatus(task, status));
         }catch (Exception e) {
             buildExceptionResponse(e);
         }
@@ -124,6 +125,30 @@ public class TaskManagerService {
         }else {
             log.error("Error when trying to find task in database: {}", e.getMessage());
             throw new TaskManagerException("Error when trying to find task in database: "+ e.getMessage());
+        }
+    }
+
+    public TaskBean getBy(Long id, AccountUserBean userBean) throws TaskManagerException, TaskAlreadyCompletedStatusException, TaskNotFoundException {
+        Task task = null;
+        try {
+            AccountUser accountUser = getAccountUser(userBean);
+            task = taskService.findByIdAndUser(id, accountUser);
+        }catch (Exception e) {
+            buildExceptionResponse(e);
+        }
+        return mapper.map(task, TaskBean.class);
+    }
+
+    private AccountUser getAccountUser(AccountUserBean userBean) throws TaskManagerException {
+        return userAccountService.getBy(userBean.getUsername());
+    }
+
+    public void remove(Long id, AccountUserBean userInfo) throws TaskManagerException, TaskAlreadyCompletedStatusException, TaskNotFoundException {
+        try {
+            AccountUser accountUser = getAccountUser(userInfo);
+            taskService.deleteBy(id, accountUser);
+        }catch (Exception e) {
+            buildExceptionResponse(e);
         }
     }
 }

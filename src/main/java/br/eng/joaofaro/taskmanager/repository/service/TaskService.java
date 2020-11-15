@@ -36,6 +36,17 @@ public class TaskService {
       }
     }
 
+    public void deleteBy(Long id, AccountUser user) throws TaskManagerException {
+        log.info("Trying to delete task from database");
+        try {
+            repository.deleteByIdAndUser(id, user);
+            log.info("Task deleted successfuly from database");
+        }catch (Exception e) {
+            log.error("Error when trying to delete task from database: {}", e.getMessage());
+            throw new TaskManagerException("Error when trying to delete task from database: " + e.getMessage());
+        }
+    }
+
     public void saveAndFlush(Task task) throws TaskManagerException {
         log.info("Trying to save task into database");
         try {
@@ -121,6 +132,28 @@ public class TaskService {
         log.info("Searching task by id: {}", id);
         try {
             Optional<Task> task = repository.findById(id);
+            if (task.isPresent()) {
+                log.info("Task has been found");
+                return task.get();
+            }else {
+                log.warn("Tasks not found");
+                throw new TaskNotFoundException("Tasks not found in database");
+            }
+        }catch (Exception e) {
+            if (e instanceof TaskNotFoundException) {
+                log.warn("Tasks not found in database");
+                throw new TaskNotFoundException("Tasks not found in database: "+ e.getMessage());
+            }else {
+                log.error("Error when trying to find task in database: {}", e.getMessage());
+                throw new TaskManagerException("Error when trying to find task in database: "+ e.getMessage());
+            }
+        }
+    }
+
+    public Task findByIdAndUser(Long id, AccountUser user) throws TaskManagerException, TaskNotFoundException {
+        log.info("Searching task");
+        try {
+            Optional<Task> task = repository.findByIdAndUser(id, user);
             if (task.isPresent()) {
                 log.info("Task has been found");
                 return task.get();
