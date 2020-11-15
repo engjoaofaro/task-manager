@@ -15,6 +15,8 @@ import br.eng.joaofaro.taskmanager.utils.UUIDImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,6 +74,7 @@ public class TaskManagerImpl implements TaskManager{
     }
 
     @Override
+    @Cacheable(value = "taskList")
     public ResponseEntity<List<ResponseDto>> list(String status) throws TaskManagerException, TaskNotFoundException,
             StatusNotFoundException, TaskAlreadyCompletedStatusException {
         UUIDImpl.createUUID();
@@ -92,6 +95,7 @@ public class TaskManagerImpl implements TaskManager{
     }
 
     @Override
+    @CacheEvict(value = {"task", "taskList"}, allEntries = true)
     public ResponseEntity<?> updateStatus(Long id, String status) throws TaskManagerException, StatusNotFoundException,
             TaskAlreadyCompletedStatusException, TaskNotFoundException {
         UUIDImpl.createUUID();
@@ -106,6 +110,7 @@ public class TaskManagerImpl implements TaskManager{
     }
 
     @Override
+    @Cacheable(value = "task")
     public ResponseEntity<ResponseDto> getById(Long id) throws TaskManagerException, TaskNotFoundException,
             TaskAlreadyCompletedStatusException {
         UUIDImpl.createUUID();
@@ -118,6 +123,7 @@ public class TaskManagerImpl implements TaskManager{
     }
 
     @Override
+    @CacheEvict(value = {"task", "taskList"}, allEntries = true)
     public ResponseEntity<?> delete(Long id) throws TaskManagerException, TaskNotFoundException,
             TaskAlreadyCompletedStatusException {
         UUIDImpl.createUUID();

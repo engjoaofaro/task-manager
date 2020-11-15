@@ -6,6 +6,7 @@ import br.eng.joaofaro.taskmanager.exception.StatusNotFoundException;
 import br.eng.joaofaro.taskmanager.exception.TaskAlreadyCompletedStatusException;
 import br.eng.joaofaro.taskmanager.exception.TaskManagerException;
 import br.eng.joaofaro.taskmanager.exception.TaskNotFoundException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;

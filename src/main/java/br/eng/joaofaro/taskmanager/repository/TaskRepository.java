@@ -18,11 +18,11 @@ import java.util.Optional;
 public interface TaskRepository extends JpaRepository<Task, Long> {
     Optional<Task> findById(Long id);
     Optional<Task> findByIdAndUser(Long id, AccountUser user);
-    @Query("select t from Task t where t.status = :status and t.user = :user order by t.status asc")
+    @Query("select t from Task t where t.status = :status and t.user = :user order by t.status desc")
     List<Task> findAllByStatusAndUser(@Param(value = "status") TaskStatus status, @Param(value = "user") AccountUser user);
-    @Query("select t from Task t where t.status = :status order by t.status asc")
+    @Query("select t from Task t where t.status = :status order by t.status desc")
     List<Task> findAllByStatus(@Param(value = "status") TaskStatus status);
-    @Query("select t from Task t where t.user = :user order by t.status asc")
+    @Query("select t from Task t where t.user = :user order by t.status desc")
     List<Task> findAllByUser(@Param(value = "user") AccountUser user);
     @Transactional
     void deleteByIdAndUser(Long id, AccountUser user);
