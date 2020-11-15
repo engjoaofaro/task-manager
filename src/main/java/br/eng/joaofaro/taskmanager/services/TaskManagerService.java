@@ -123,8 +123,8 @@ public class TaskManagerService {
             log.warn("Task already completed");
             throw new TaskAlreadyCompletedStatusException("Task already completed");
         }else {
-            log.error("Error when trying to find task in database: {}", e.getMessage());
-            throw new TaskManagerException("Error when trying to find task in database: "+ e.getMessage());
+            log.error("Error when trying to proccess task: {}", e.getMessage());
+            throw new TaskManagerException("Error when trying to proccess task: "+ e.getMessage());
         }
     }
 

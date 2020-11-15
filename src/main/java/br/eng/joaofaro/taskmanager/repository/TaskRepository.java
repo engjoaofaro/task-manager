@@ -4,6 +4,7 @@ import br.eng.joaofaro.taskmanager.entity.AccountUser;
 import br.eng.joaofaro.taskmanager.entity.Task;
 import br.eng.joaofaro.taskmanager.enums.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +19,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findAllByStatusAndUser(TaskStatus status, AccountUser user);
     List<Task> findAllByStatus(TaskStatus status);
     List<Task> findAllByUser(AccountUser user);
+    @Transactional
     void deleteByIdAndUser(Long id, AccountUser user);
 }
