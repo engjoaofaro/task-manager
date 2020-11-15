@@ -9,9 +9,9 @@ import javax.annotation.security.RolesAllowed;
  * @author João Faro    contato@joaofaro.eng.br on 13/11/20
  * @version 1.0.0
  */
-@RolesAllowed("USER,SUPER_USER")
+@RolesAllowed("user,super_user")
 public interface TaskManager {
 
     @GetMapping(value="/healthcheck")
-    ResponseEntity<String> healthCheck();
+    ResponseEntity<?> healthCheck();
 }

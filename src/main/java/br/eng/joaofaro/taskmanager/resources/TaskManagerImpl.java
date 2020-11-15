@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TaskManagerImpl implements TaskManager{
 
     @Override
-    public ResponseEntity<String> healthCheck() {
+    public ResponseEntity<?> healthCheck() {
         log.debug("Calling health check");
         return ResponseEntity.ok().build();
     }

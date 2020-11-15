@@ -18,3 +18,32 @@ logging:
     rollingpolicy:
       max-file-size: 20MB
       max-history: 30
+#DATABASE
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:task-manager
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+#SERVER
+server:
+  port: 8000
+#KEYCLOAK
+keycloak:
+  use-resource-role-mappings: true
+  bearer-only: true
+  realm: itau
+  auth-server-url: http://localhost:8080/auth/
+  ssl-required: external
+  resource: task-manager-app
+  credentials:
+    secret: 0bf3bd99-2c54-4d6a-85cb-68db54944ddc
