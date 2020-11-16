@@ -17,7 +17,7 @@ public class TaskBean {
     private AccountUserBean user;
     private String shortDescription;
     private LocalDateTime dateUpdate;
-    private TaskStatus currentStatus;
+    private TaskStatus status;
 
     public AccountUserBean getUser() {
         return user;
@@ -67,12 +67,12 @@ public class TaskBean {
         this.dateUpdate = dateUpdate;
     }
 
-    public TaskStatus getCurrentStatus() {
-        return currentStatus;
+    public TaskStatus getStatus() {
+        return status;
     }
 
-    public void setCurrentStatus(TaskStatus currentStatus) {
-        this.currentStatus = currentStatus;
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class TaskBean {
                 .add("user=" + user)
                 .add("shortDescription='" + shortDescription + "'")
                 .add("dateUpdate=" + dateUpdate)
-                .add("currentStatus=" + currentStatus)
+                .add("currentStatus=" + status)
                 .toString();
     }
 }

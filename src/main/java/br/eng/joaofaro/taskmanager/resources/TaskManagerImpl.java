@@ -63,6 +63,7 @@ public class TaskManagerImpl implements TaskManager{
 
         log.info("Mapping task to Bean");
         TaskBean taskBean = mapper.map(task, TaskBean.class);
+        taskBean.setStatus(TaskStatus.PENDING);
         log.info("Task: {}", taskBean);
         TaskBean taskNew = taskManagerService.createNew(taskBean, userInfo);
         ResponseDto responseDto = buildResponse(taskNew);
