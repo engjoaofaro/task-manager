@@ -24,18 +24,18 @@ public interface TaskManager {
 
     @GetMapping(value="/healthcheck")
     ResponseEntity<?> healthCheck();
-    @PostMapping(value = "/tasks", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
+    @PostMapping(value = "/task", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
     ResponseEntity<ResponseDto> create(TaskDto task, UriComponentsBuilder uriBuilder) throws TaskManagerException;
     @GetMapping(value = "/tasks", produces = MediaType.APPLICATION_JSON)
     ResponseEntity<List<ResponseDto>> list(String status) throws TaskManagerException, TaskNotFoundException,
             StatusNotFoundException, TaskAlreadyCompletedStatusException;
-    @PutMapping(value = "/tasks/{id}/{status}", produces = MediaType.APPLICATION_JSON)
+    @PutMapping(value = "/task/{id}/{status}", produces = MediaType.APPLICATION_JSON)
     ResponseEntity<?> updateStatus(@PathVariable Long id, @PathVariable String status) throws TaskManagerException,
             StatusNotFoundException, TaskAlreadyCompletedStatusException, TaskNotFoundException;
-    @GetMapping(value = "/tasks/{id}", produces = MediaType.APPLICATION_JSON)
+    @GetMapping(value = "/task/{id}", produces = MediaType.APPLICATION_JSON)
     ResponseEntity<ResponseDto> getById(@PathVariable Long id) throws TaskManagerException, TaskNotFoundException,
             TaskAlreadyCompletedStatusException;
-    @DeleteMapping(value = "/tasks/{id}", produces = MediaType.APPLICATION_JSON)
+    @DeleteMapping(value = "/task/{id}", produces = MediaType.APPLICATION_JSON)
     ResponseEntity<?> delete(@PathVariable Long id) throws TaskManagerException, TaskNotFoundException,
             TaskAlreadyCompletedStatusException;
 }
