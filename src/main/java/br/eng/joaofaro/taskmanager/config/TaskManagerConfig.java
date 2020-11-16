@@ -19,7 +19,13 @@ import org.springframework.security.web.authentication.session.RegisterSessionAu
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
 /**
+ * <p>Configuration class</p>
+ * <p>Here we have all configurations, beans and some security annotations for project</p>
+ *
  * @author João Faro    contato@joaofaro.eng.br on 14/11/20
+ *
+ * @see KeycloakWebSecurityConfigurerAdapter
+ * @see ModelMapper
  * @version 1.0.0
  */
 @Configuration
@@ -31,7 +37,6 @@ public class TaskManagerConfig extends KeycloakWebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http.authorizeRequests()
-                .antMatchers("/url").hasAnyRole("user","super_user")
                 .anyRequest()
                 .authenticated();
         http.csrf().disable();
