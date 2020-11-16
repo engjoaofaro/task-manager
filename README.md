@@ -4,6 +4,14 @@ Projeto desenvolvido ao Itaú Unibanco para fins de testes e avaliação.
 
 O projeto consiste em uma API <b>TODO-LIST</b> de gerenciamento de tarefas.
 
+### Tecnologias utilizadas
+* Java 11
+* Database H2
+* Keycloak (Gerenciamento de segurança)
+* Spring boot
+* Swagger hub
+* Amazon EC2 (Deploy aplicação)
+
 ## AUTHOR
 
 João Paulo Bremgartner Faro, Engenheiro de computação e especialista em Segurança computacional.
