@@ -17,7 +17,7 @@ public class TaskBean {
     private AccountUserBean user;
     private String shortDescription;
     private LocalDateTime dateUpdate;
-    private TaskStatus currentStatus = TaskStatus.PENDING;
+    private TaskStatus currentStatus;
 
     public AccountUserBean getUser() {
         return user;

@@ -91,6 +91,7 @@ public class TaskManagerService {
         task.setDateInsert(LocalDateTime.now());
         task.setDateUpdate(LocalDateTime.now());
         task.setUser(accountUser);
+        task.setStatus(TaskStatus.PENDING);
         return task;
     }
 
