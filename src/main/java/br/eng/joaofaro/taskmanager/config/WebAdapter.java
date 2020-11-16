@@ -16,6 +16,6 @@ public class WebAdapter extends WebSecurityConfigurerAdapter {
 
     public void configure(WebSecurity http) throws Exception {
         http.ignoring()
-                .antMatchers("/task-manager/healthcheck", "/h2-console/**");
+                .antMatchers("/task-manager/healthcheck", "/h2-console/**", "/actuator/**", "/metrics/**");
     }
 }

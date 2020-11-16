@@ -49,3 +49,20 @@ keycloak:
   credentials:
     secret: 0bf3bd99-2c54-4d6a-85cb-68db54944ddc
   principal-attribute: preferred_username
+#ACTUATOR
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    jmx:
+      exposure:
+        include: '*'
+info:
+  app:
+    name: @project.name@
+    version: @project.version@
+    encoding: @project.build.sourceEncoding@
+    java:
+      version: @java.version@
+    description: @project.description@
