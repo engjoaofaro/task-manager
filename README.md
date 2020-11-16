@@ -20,7 +20,7 @@ Lá é onde se concentra as informações relacionadas ao token e informações 
 
 Importante ressaltar que o projeto <code>task-manager</code> não depende da instalação prévia do Keycloak, pois já existe um <i>standalone</i> rodando em uma máquina (EC2) minha na Amazon (A mesma utilizada para consulta aos endpoints deste projeto) e este projeto já está apontando para o endereço dela para a aquisição do <code>token</code> (<b>Ver arquivo application.yml</b>). 
 
-Caso queira instalar localmente o keycloack para saber como foi configurado os <code>usuários</code> e <code>roles</code> estou disponibilizando um link da pasta completa no [dropbox](https://www.dropbox.com/s/qew8xviq8misxxe/keycloak-11.0.3.zip?dl=0) ao qual já está tudo configurado. Após fazer o download, extrair e a partir da pasta <code>/bin</code> executar o seguinte comando:
+Caso queira instalar localmente o keycloack para saber como foi configurado os <code>usuários</code> e <code>roles</code> estou disponibilizando um link da pasta completa no [dropbox]() ao qual já está tudo configurado. Após fazer o download, extrair e a partir da pasta <code>/bin</code> executar o seguinte comando:
 ```bash
 sh standalone.sh
 ```
@@ -48,7 +48,10 @@ Verificar exemplos de requisições nos testes abaixo.
 ## INSTALAÇÃO
 * Realizar o clone do projeto aqui no github.
 
-## ENDPOINTS PARA TESTES NA AMAZON
+## CONTEXTO PARA TESTES NA DIRETO NA AMAZON
+
+* AUTH: http://15.228.91.199:8080/auth/realms/itau/protocol/openid-connect/token
+* TASK: http://15.228.91.199:8000/task-manager/tasks
 
 ## DOCUMENTAÇÃO
 

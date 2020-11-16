@@ -43,8 +43,8 @@ keycloak:
   use-resource-role-mappings: true
   bearer-only: true
   realm: itau
-  auth-server-url: http://localhost:8080/auth/
-  ssl-required: external
+  auth-server-url: http://15.228.91.199:8080/auth/
+  ssl-required: none
   resource: task-manager-app
   credentials:
     secret: 0bf3bd99-2c54-4d6a-85cb-68db54944ddc
