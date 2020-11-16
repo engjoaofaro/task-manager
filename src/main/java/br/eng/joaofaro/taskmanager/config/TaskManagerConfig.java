@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
  *
  * @see KeycloakWebSecurityConfigurerAdapter
  * @see ModelMapper
+ *
  * @version 1.0.0
  */
 @Configuration
@@ -41,22 +42,50 @@ public class TaskManagerConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .authenticated();
         http.csrf().disable();
     }
+
+    /**
+     * <p>Integration method responsible for authentication from <code>keycloak</code></p>
+     * @see AuthenticationManagerBuilder
+     * @see KeycloakAuthenticationProvider
+     *
+     * @param auth authentication manager builder from Spring framework
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
         KeycloakAuthenticationProvider keycloakAuthenticationProvider = keycloakAuthenticationProvider();
         keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
         auth.authenticationProvider(keycloakAuthenticationProvider);
     }
+
+    /**
+     * <p>Method responsible to register a strategy to session management</p>
+     *
+     * @see SessionAuthenticationStrategy
+     * @return RegisterSessionAuthenticationStrategy
+     */
     @Bean
     @Override
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
         return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
     }
+
+    /**
+     * <p>Method responsible get resover for keycloak integratio</p>
+     *
+     * @see KeycloakConfigResolver
+     * @return KeycloakSpringBootConfigResolver
+     */
     @Bean
     public KeycloakConfigResolver KeycloakConfigResolver() {
         return new KeycloakSpringBootConfigResolver();
     }
 
+    /**
+     * <p>Bean of Model Mapper to inject in project</p>
+     *
+     * @see ModelMapper
+     * @return new ModelMapper()
+     */
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();

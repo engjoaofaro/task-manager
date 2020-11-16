@@ -16,6 +16,10 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
+ * <p>Interface to handle all api requests</p>
+ * <p>Her we have some configurations methods</p>
+ *
+ * @see TaskManagerImpl
  * @author João Faro    contato@joaofaro.eng.br on 13/11/20
  * @version 1.0.0
  */

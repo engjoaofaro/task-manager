@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <p>An important class that handle all <i><code>Exceptions</code></i> in application</p>
+ * <p>Return a custom response</p>
+ *
+ * @see MessageSource
+ *
  * @author João Faro    contato@joaofaro.eng.br on 15/11/20
  * @version 1.0.0
  */
@@ -27,12 +32,23 @@ public class TaskManagerExceptionHandler {
         this.messageSource = messageSource;
     }
 
+    /**
+     * <p>Internal server error handle</p>
+     *
+     * @param e - exception
+     * @return Error model
+     */
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(TaskManagerException.class)
     public ErrorDto taskManagerExceptionHandle(Exception e) {
         return new ErrorDto(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), e.getMessage());
     }
 
+    /**
+     * <p>Validation handle when create a new task</p>
+     *
+     * @return list of errors model
+     */
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public List<TaskManagerFormErrorDto> DtoValidationHandle(MethodArgumentNotValidException exception) {
@@ -47,12 +63,24 @@ public class TaskManagerExceptionHandler {
         return erros;
     }
 
+    /**
+     * <p>Task not found handle</p>
+     *
+     * @param e - exception
+     * @return Error model
+     */
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     @ExceptionHandler(TaskNotFoundException.class)
     public ErrorDto taskManagerNotFoundExceptionHandle(Exception e) {
         return new ErrorDto(String.valueOf(HttpStatus.NOT_FOUND.value()), e.getMessage());
     }
 
+    /**
+     * <p>Status not found handle</p>
+     *
+     * @param e - exception
+     * @return Error model
+     */
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler({StatusNotFoundException.class, TaskAlreadyCompletedStatusException.class})
     public ErrorDto StatusExceptionHandle(Exception e) {

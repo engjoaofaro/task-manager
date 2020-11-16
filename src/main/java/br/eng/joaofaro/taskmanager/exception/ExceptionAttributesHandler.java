@@ -6,6 +6,10 @@ import org.springframework.web.context.request.WebRequest;
 import java.util.Map;
 
 /**
+ * <p>This class remove some unused fields when an error ocurred in <code>>application</code</p>
+ *
+ * @see DefaultErrorAttributes
+ *
  * @author João Faro    contato@joaofaro.eng.br on 15/11/20
  * @version 1.0.0
  */

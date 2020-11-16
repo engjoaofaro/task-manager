@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
+ * <p>Class responsible to process all <code>users</code> services</p>
+ *
+ * @see UserAccountRepository
  * @author João Faro    contato@joaofaro.eng.br on 15/11/20
  * @version 1.0.0
  */
@@ -22,6 +25,12 @@ public class UserAccountService {
         this.repository = repository;
     }
 
+    /**
+     * <p>Method responsible to get a <code>user</code> by username</p>
+     * @param username User username
+     * @return Account
+     * @throws TaskManagerException throws a exception to handle result
+     */
     public AccountUser getBy(String username) throws TaskManagerException {
         log.info("Getting user by username: {}", username);
         Optional<AccountUser> user;

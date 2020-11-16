@@ -13,6 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * <p>Class responsible to process all <code>task</code> services</p>
+ *
+ * @see TaskRepository
+ * @see TaskManagerException
+ * @see TaskNotFoundException
+ *
  * @author João Faro    contato@joaofaro.eng.br on 15/11/20
  * @version 1.0.0
  */
@@ -26,6 +32,11 @@ public class TaskService {
         this.repository = repository;
     }
 
+    /**
+     * <p>Method responsible to save a <code>task</code></p>
+     * @param task - task object
+     * @throws TaskManagerException - throws a exception to handle result
+     */
     public void save(Task task) throws TaskManagerException {
       log.info("Trying to save task into database");
       try {
@@ -36,6 +47,12 @@ public class TaskService {
       }
     }
 
+    /**
+     * <p>Method responsible to delete a <code>task</code></p>
+     * @param id - Task id
+     * @param user - Task user
+     * @throws TaskManagerException - throws a exception to handle result
+     */
     public void deleteBy(Long id, AccountUser user) throws TaskManagerException {
         log.info("Trying to delete task from database");
         try {
@@ -47,6 +64,11 @@ public class TaskService {
         }
     }
 
+    /**
+     * <p>Method responsible to update a <code>task</code></p>
+     * @param task - task object
+     * @throws TaskManagerException - throws a exception to handle result
+     */
     public void saveAndFlush(Task task) throws TaskManagerException {
         log.info("Trying to save task into database");
         try {
@@ -57,6 +79,14 @@ public class TaskService {
         }
     }
 
+    /**
+     * <p>Method responsible to list <code>tasks</code> by status and user</p>
+     * @param status - task status
+     * @param user - task user
+     * @return - List of tasks
+     * @throws TaskManagerException - throws a exception to handle result
+     * @throws TaskNotFoundException - throws a exception to handle result
+     */
     public List<Task> listBy(TaskStatus status, AccountUser user) throws TaskManagerException, TaskNotFoundException {
         log.info("Searching task by status and user");
         try {
@@ -79,6 +109,14 @@ public class TaskService {
         }
     }
 
+    /**
+     * <p>Method responsible to list <code>tasks</code></p>
+     * <p>Could be complemented with status</p>
+     * @param status - Task status
+     * @return - List of tasks
+     * @throws TaskManagerException - throws a exception to handle result
+     * @throws TaskNotFoundException - throws a exception to handle result
+     */
     public List<Task> listAll(TaskStatus status) throws TaskManagerException, TaskNotFoundException {
         log.info("Searching task by status");
         try {
@@ -106,6 +144,13 @@ public class TaskService {
         }
     }
 
+    /**
+     * <p>Method responsible to list <code>tasks</code> by User</p>
+     * @param user - task user
+     * @return - List of tasks
+     * @throws TaskManagerException - throws a exception to handle result
+     * @throws TaskNotFoundException - throws a exception to handle result
+     */
     public List<Task> listAllBy(AccountUser user) throws TaskManagerException, TaskNotFoundException {
         log.info("Searching task by user");
         try {
@@ -128,6 +173,13 @@ public class TaskService {
         }
     }
 
+    /**
+     * <p>Method responsible to find <code>tasks</code> by id</p>
+     * @param id - task id
+     * @return - Task object
+     * @throws TaskManagerException - throws a exception to handle result
+     * @throws TaskNotFoundException - throws a exception to handle result
+     */
     public Task findById(Long id) throws TaskManagerException, TaskNotFoundException {
         log.info("Searching task by id: {}", id);
         try {
@@ -150,6 +202,14 @@ public class TaskService {
         }
     }
 
+    /**
+     * <p>Method responsible to find <code>tasks</code> by id and user</p>
+     * @param id - task id
+     * @param user - task user
+     * @return - Task object
+     * @throws TaskManagerException throws a exception to handle result
+     * @throws TaskNotFoundException throws a exception to handle result
+     */
     public Task findByIdAndUser(Long id, AccountUser user) throws TaskManagerException, TaskNotFoundException {
         log.info("Searching task");
         try {
