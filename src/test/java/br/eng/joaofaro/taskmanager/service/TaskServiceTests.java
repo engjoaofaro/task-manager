@@ -5,7 +5,9 @@ import br.eng.joaofaro.taskmanager.beans.TaskBean;
 import br.eng.joaofaro.taskmanager.entity.AccountUser;
 import br.eng.joaofaro.taskmanager.entity.Task;
 import br.eng.joaofaro.taskmanager.enums.TaskStatus;
+import br.eng.joaofaro.taskmanager.exception.TaskAlreadyCompletedStatusException;
 import br.eng.joaofaro.taskmanager.exception.TaskManagerException;
+import br.eng.joaofaro.taskmanager.exception.TaskNotFoundException;
 import br.eng.joaofaro.taskmanager.repository.service.TaskService;
 import br.eng.joaofaro.taskmanager.repository.service.UserAccountService;
 import br.eng.joaofaro.taskmanager.services.TaskManagerService;
@@ -33,7 +35,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class TaskServiceTests {
 
-    @InjectMocks
+    @Mock
     private TaskManagerService taskManagerService;
     @Mock
     private UserAccountService userAccountService;
@@ -49,7 +51,7 @@ public class TaskServiceTests {
     private AccountUser accountUser;
 
     @Before
-    public void init() throws TaskManagerException {
+    public void init() throws TaskManagerException, TaskNotFoundException {
         buildAccountUserBean();
         buildTaskBean();
         buildTask();
@@ -59,12 +61,20 @@ public class TaskServiceTests {
         doNothing().when(taskService).save(isA(Task.class));
         when(modelMapper.map(taskBean, Task.class)).thenReturn(task);
         when(modelMapper.map(task, TaskBean.class)).thenReturn(taskBean);
+        when(taskService.findByIdAndUser(1L, accountUser)).thenReturn(task);
+        doNothing().when(taskService).saveAndFlush(isA(Task.class));
     }
 
     @Test
     public void whenReceiveANewTask_thenReturnTaskBeanSuccessfulyTest() throws TaskManagerException {
         when(taskManagerService.createNew(taskBean, accountUserBean)).thenReturn(taskBeanWithId);
         Assert.assertEquals(1, (long)taskBeanWithId.getId());
+    }
+
+    @Test
+    public void whenUpdateATask_thenReturnOkTest() throws TaskManagerException, TaskAlreadyCompletedStatusException, TaskNotFoundException {
+        doNothing().when(taskManagerService).changeStatus(isA(Long.class), isA(String.class), isA(AccountUserBean.class));
+        Assert.assertEquals(TaskStatus.COMPLETED, task.getStatus());
     }
 
     private void buildAccountUserBean() {
@@ -104,7 +114,7 @@ public class TaskServiceTests {
         task.setDateUpdate(LocalDateTime.now());
         task.setDescription("Task description");
         task.setShortDescription("task");
-        task.setStatus(TaskStatus.PENDING);
+        task.setStatus(TaskStatus.COMPLETED);
         task.setUser(accountUser);
     }
 }
