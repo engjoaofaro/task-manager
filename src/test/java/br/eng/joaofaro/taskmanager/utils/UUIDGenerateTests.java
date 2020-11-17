@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
- * @author João Faro    joao.faro@joaofaro.eng.br on 13/11/20
+ * @author João Faro    contato@joaofaro.eng.br on 13/11/20
  * @version 1.0.0
  */
 @SpringBootTest
