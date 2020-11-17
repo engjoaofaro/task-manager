@@ -62,7 +62,7 @@ public class TaskServiceTests {
     }
 
     @Test
-    public void whenReceiveANewTask_thenReturnTaskBeanSuccessfuly() throws TaskManagerException {
+    public void whenReceiveANewTask_thenReturnTaskBeanSuccessfulyTest() throws TaskManagerException {
         when(taskManagerService.createNew(taskBean, accountUserBean)).thenReturn(taskBeanWithId);
         Assert.assertEquals(1, (long)taskBeanWithId.getId());
     }
