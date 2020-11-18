@@ -57,12 +57,15 @@ management:
   endpoints:
     jmx:
       exposure:
-        include: '*'
+        include: "*"
+    web:
+      exposure:
+        include: "*"
 info:
   app:
-    name: @project.name@
-    version: @project.version@
-    encoding: @project.build.sourceEncoding@
+    name: "@project.name@"
+    version: "@project.version@"
+    encoding: "@project.build.sourceEncoding@"
     java:
-      version: @java.version@
-    description: @project.description@
+      version: "@java.version@"
+    description: "@project.description@"
