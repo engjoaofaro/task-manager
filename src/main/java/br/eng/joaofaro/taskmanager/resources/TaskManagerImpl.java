@@ -54,6 +54,7 @@ public class TaskManagerImpl implements TaskManager{
     }
 
     @Override
+    @CacheEvict(value = {"task", "taskList"}, allEntries = true)
     public ResponseEntity<ResponseDto> create(@RequestBody @Valid TaskDto task, UriComponentsBuilder uriBuilder) throws TaskManagerException {
         UUIDImpl.createUUID();
         log.info("Receiving Task: {}", task);
