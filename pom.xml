@@ -23,6 +23,9 @@
         <keycloak.version>11.0.3</keycloak.version>
         <javax.validation.version>2.0.0.Final</javax.validation.version>
         <surefire.plugin.version>2.21.0</surefire.plugin.version>
+        <sonar.projectKey>engjoaofaro_task-manager</sonar.projectKey>
+        <sonar.organization>engjoaofaro</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -137,6 +140,11 @@
                         --illegal-access=permit
                     </argLine>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.7.0.1746</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
