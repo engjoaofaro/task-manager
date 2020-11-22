@@ -1,3 +1,5 @@
+[![Github Actions Status for engjoaofaro/task-manager](https://github.com/engjoaofaro/task-manager/workflows/Build/badge.svg)](https://github.com/engjoaofaro/task-manager/actions) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=engjoaofaro_task-manager&metric=alert_status)](https://sonarcloud.io/dashboard?id=engjoaofaro_task-manager)
+
 # TASK-MANAGER
 
 Projeto desenvolvido ao Itaú Unibanco para fins de testes e avaliação.
