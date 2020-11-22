@@ -26,7 +26,7 @@
         <sonar.projectKey>engjoaofaro_task-manager</sonar.projectKey>
         <sonar.organization>engjoaofaro</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <jacoco.version>0.8.5</jacoco.version>
     </properties>
 
     <dependencies>
@@ -142,11 +142,18 @@
                     </argLine>
                 </configuration>
             </plugin>
+            <!-- JaCoCo test coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.5</version>
+                <version>${jacoco.version}</version>
                 <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
                     <execution>
                         <id>default-prepare-agent-integration</id>
                         <goals>
@@ -154,23 +161,33 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>default-report</id>
+                        <id>merge-results</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>merge</goal>
+                        </goals>
+                        <configuration>
+                            <fileSets>
+                                <fileSet>
+                                    <directory>${project.build.directory}</directory>
+                                    <includes>
+                                        <include>*.exec</include>
+                                    </includes>
+                                </fileSet>
+                            </fileSets>
+                            <destFile>${project.build.directory}/aggregate.exec</destFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>post-merge-report</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
-                    </execution>
-                    <execution>
-                        <id>default-report-integration</id>
-                        <goals>
-                            <goal>report-integration</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <goals>
-                            <goal>report-aggregate</goal>
-                        </goals>
-                        <phase>verify</phase>
+                        <configuration>
+                            <dataFile>${project.build.directory}/aggregate.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -190,5 +207,11 @@
             </plugin>
         </plugins>
     </build>
-
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub engjoaofaro Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/engjoaofaro/task-manager</url>
+        </repository>
+    </distributionManagement>
 </project>
