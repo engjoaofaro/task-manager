@@ -1,5 +1,7 @@
 [![Github Actions Status for engjoaofaro/task-manager](https://github.com/engjoaofaro/task-manager/workflows/Build/badge.svg)](https://github.com/engjoaofaro/task-manager/actions) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=engjoaofaro_task-manager&metric=alert_status)](https://sonarcloud.io/dashboard?id=engjoaofaro_task-manager) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Open issues](https://img.shields.io/github/issues/engjoaofaro/task-manager)](https://github.com/engjoaofaro/task-manager/issues)
 
+[![Tag](https://img.shields.io/github/v/tag/engjoaofaro/task-manager)](https://github.com/engjoaofaro/task-manager/tags)
+
 # TASK-MANAGER
 
 Projeto desenvolvido ao Itaú Unibanco para fins de testes e avaliação.
