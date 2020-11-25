@@ -2,7 +2,7 @@
 
 # TASK-MANAGER
 
-Projeto desenvolvido ao Itaú Unibanco para fins de testes e avaliação.
+Projeto desenvolvido para fins de testes e avaliação.
 
 O projeto consiste em uma API <b>TODO-LIST</b> de gerenciamento de tarefas.
 
@@ -88,8 +88,8 @@ curl -X POST 'http://localhost:8080/auth/realms/itau/protocol/openid-connect/tok
 
 ```bash
 curl -v -X POST -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkZzdTcGFPRF8zV0dhUWFwS2JIMUJHeHBWMDFZaEp6SXVSSm9jOEZsMEQwIn0.eyJleHAiOjE2MDU0OTc1NjQsImlhdCI6MTYwNTQ5NzI2NCwianRpIjoiZGZkODM2MGMtZmQ5OC00Yzc0LThmMzYtMzc5MmViZTAyYTM5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL2l0YXUiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZDRjNzRhMDktYzZlNC00NWIxLTk3ZWUtNTA0OTliZjhhY2YxIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoidGFzay1tYW5hZ2VyLWFwcCIsInNlc3Npb25fc3RhdGUiOiJlNmJlNzUxYS00Nzk5LTQ2OGMtYTZlNi04YjhiNzY5NTBjNWUiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsImFwcC11c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsidGFzay1tYW5hZ2VyLWFwcCI6eyJyb2xlcyI6WyJ1c2VyIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoiY29tbW9uLXVzZXIxIn0.KS8ZRHd8Z3QEx2d5bAQ9BaOzS_mLwJ_Y_-img_LJ6kwGK4Vl79gI3GwFblydWKRVeM_7LHXMsGUEcJlmQ9TEJz_zJQ2Qzocf01uHSgbNdOO22lBKiC9ej6PgtDBZsld_SCN8sdVPCAoBiRPESETWyRCIdIdxlc0YbIZgc3uMdutvAMgi1DaOKiVEIjf9t8TTKyQTj1nJdr18SF2ngV4d5oDan3CX-8Tmq-4s70KLc4fa60om5huS6-Eoa6q8n63QZWXl6iWjuomgEmHlffCZeePBldNEvi6vDfb8vycxBBV8gJ9RoNRot9VrjqeFx1t8LK4dvVrKoNRak2OwvllgoQ' -H "Content-type: application/json" -d '{
-    "shortDescription": "Teste 3 Itaú", 
-    "description": "Teste 3 para o cargo de Engenheiro Sr. Itaú Unibanco"
+    "shortDescription": "Teste 3", 
+    "description": "Teste 3 detalhado"
 }' 'http://localhost:8000/task-manager/task'
 ```
 
