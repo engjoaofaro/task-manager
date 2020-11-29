@@ -1,6 +1,6 @@
 [![Github Actions Status for engjoaofaro/task-manager](https://github.com/engjoaofaro/task-manager/workflows/Build/badge.svg)](https://github.com/engjoaofaro/task-manager/actions) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=engjoaofaro_task-manager&metric=alert_status)](https://sonarcloud.io/dashboard?id=engjoaofaro_task-manager) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Open issues](https://img.shields.io/github/issues/engjoaofaro/task-manager)](https://github.com/engjoaofaro/task-manager/issues)
 
-[![Tag](https://img.shields.io/github/v/tag/engjoaofaro/task-manager)](https://github.com/engjoaofaro/task-manager/tags)
+[![Tag](https://img.shields.io/github/v/tag/engjoaofaro/task-manager)](https://github.com/engjoaofaro/task-manager/tags) [![Server](https://img.shields.io/website?label=AWS-server&url=http%3A%2F%2F15.228.91.199%3A8000%2Ftask-manager%2Fhealthcheck)](http://15.228.91.199:8000/task-manager/healthcheck)
 
 # TASK-MANAGER
 
