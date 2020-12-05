@@ -1,6 +1,6 @@
 [![Github Actions Status for engjoaofaro/task-manager](https://github.com/engjoaofaro/task-manager/workflows/Build/badge.svg)](https://github.com/engjoaofaro/task-manager/actions) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=engjoaofaro_task-manager&metric=alert_status)](https://sonarcloud.io/dashboard?id=engjoaofaro_task-manager) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Open issues](https://img.shields.io/github/issues/engjoaofaro/task-manager)](https://github.com/engjoaofaro/task-manager/issues)
 
-[![Tag](https://img.shields.io/github/v/tag/engjoaofaro/task-manager)](https://github.com/engjoaofaro/task-manager/tags) [![Server](https://img.shields.io/website?label=AWS-server&url=http%3A%2F%2F15.228.91.199%3A8000%2Ftask-manager%2Fhealthcheck)](http://15.228.91.199:8000/task-manager/healthcheck)
+[![Tag](https://img.shields.io/github/v/tag/engjoaofaro/task-manager)](https://github.com/engjoaofaro/task-manager/tags) [![Server](https://img.shields.io/website?label=AWS-server&url=http%3A%2F%2F54.94.3.4%3A8000%2Ftask-manager%2Fhealthcheck)](http://54.94.3.4:8000/task-manager/healthcheck)
 
 # TASK-MANAGER
 
@@ -32,7 +32,7 @@ Lá é onde se concentra as informações relacionadas ao token e informações 
 
 Importante ressaltar que o projeto <code>task-manager</code> não depende da instalação prévia do Keycloak, pois já existe um <i>standalone</i> rodando em uma máquina (EC2) minha na Amazon (A mesma utilizada para consulta aos endpoints deste projeto) e este projeto já está apontando para o endereço dela para a aquisição do <code>token</code> (<b>Ver arquivo application.yml</b>). 
 
-Caso queira instalar localmente o keycloack para saber como foi configurado os <code>usuários</code> e <code>roles</code> estou disponibilizando um link da pasta completa no [dropbox](https://www.dropbox.com/s/qew8xviq8misxxe/keycloak-11.0.3.zip?dl=0) ao qual já está tudo configurado. Após fazer o download, extrair e a partir da pasta <code>/bin</code> executar o seguinte comando:
+Caso queira instalar localmente o keycloack para saber como foi configurado os <code>usuários</code> e <code>roles</code> estou disponibilizando um link da pasta completa no [dropbox](https://www.dropbox.com/s/0mqrczkboaar4xy/keycloak-11.0.3.zip?dl=0) ao qual já está tudo configurado. Após fazer o download, extrair e a partir da pasta <code>/bin</code> executar o seguinte comando:
 ```bash
 sh standalone.sh
 ```
@@ -65,8 +65,8 @@ Verificar exemplos de requisições nos testes abaixo.
 
 ## CONTEXTO PARA TESTES DIRETO NA AMAZON
 
-* AUTH: http://15.228.91.199:8080/auth/realms/itau/protocol/openid-connect/token
-* TASK: http://15.228.91.199:8000/task-manager/tasks
+* AUTH: http://54.94.75.4:8080/auth/realms/itau/protocol/openid-connect/token
+* TASK: http://54.94.3.4:8000/task-manager/tasks
 
 ## DOCUMENTAÇÃO
 
