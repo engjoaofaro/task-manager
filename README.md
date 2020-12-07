@@ -32,7 +32,7 @@ Lá é onde se concentra as informações relacionadas ao token e informações 
 
 Importante ressaltar que o projeto <code>task-manager</code> não depende da instalação prévia do Keycloak, pois já existe um <i>standalone</i> rodando em uma máquina (EC2) minha na Amazon (A mesma utilizada para consulta aos endpoints deste projeto) e este projeto já está apontando para o endereço dela para a aquisição do <code>token</code> (<b>Ver arquivo application.yml</b>). 
 
-Caso queira instalar localmente o keycloack para saber como foi configurado os <code>usuários</code> e <code>roles</code> estou disponibilizando um link da pasta completa no [dropbox](https://www.dropbox.com/s/0mqrczkboaar4xy/keycloak-11.0.3.zip?dl=0) ao qual já está tudo configurado. Após fazer o download, extrair e a partir da pasta <code>/bin</code> executar o seguinte comando:
+Caso queira instalar localmente o keycloack para saber como foi configurado os <code>usuários</code> e <code>roles</code> estou disponibilizando um link da pasta completa no [S3](https://engjoaofaro.s3-sa-east-1.amazonaws.com/keycloak/keycloak-11.0.3.zip) ao qual já está tudo configurado. Após fazer o download, extrair e a partir da pasta <code>/bin</code> executar o seguinte comando:
 ```bash
 sh standalone.sh
 ```
