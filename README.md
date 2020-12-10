@@ -65,8 +65,8 @@ Verificar exemplos de requisições nos testes abaixo.
 
 ## CONTEXTO PARA TESTES DIRETO NA AMAZON
 
-* AUTH: http://itau-sandbox-auth:8080/auth/realms/itau/protocol/openid-connect/token
-* TASK: http://itau-sandbox-api:8000/task-manager/tasks
+* AUTH: http://itau-sandbox-auth.crushonjava.com.br:8080/auth/realms/itau/protocol/openid-connect/token
+* TASK: https://itau-sandbox-api.crushonjava.com.br/task-manager/tasks
 
 ## DOCUMENTAÇÃO
 
