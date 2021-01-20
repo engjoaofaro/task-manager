@@ -193,6 +193,7 @@
         </plugins>
     </build>
     <distributionManagement>
+
         <repository>
             <id>github</id>
             <name>GitHub engjoaofaro Apache Maven Packages</name>
