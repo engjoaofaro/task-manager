@@ -187,6 +187,8 @@
                         <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
                         <versionTagPrefix>v-</versionTagPrefix>
                     </flowInitContext>
+                    <allowUntracked>true</allowUntracked>
+                    <allowSnapshots>true</allowSnapshots>
                 </configuration>
             </plugin>
         </plugins>
