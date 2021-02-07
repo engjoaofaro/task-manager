@@ -27,6 +27,7 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <jacoco.version>0.8.6</jacoco.version>
         <argLine>--illegal-access=permit</argLine>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
 
     <dependencies>
